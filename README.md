@@ -1,6 +1,3 @@
-RUN CODE BY USING THIS COMMAND:
-
-
 # RECIPES API
 
 This is a program created to pass the 2nd year :)
