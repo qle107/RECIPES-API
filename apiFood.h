@@ -12,5 +12,5 @@ struct dataStored {
     size_t size;
 };
 
-char* foodAPI(const char *query);
+char* foodAPI(const char *q, const char *urlRecom, const char *apiKey, const char *addition);
 #endif //CINTERFACE_APIFOOD_H

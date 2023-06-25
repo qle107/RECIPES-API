@@ -7,14 +7,20 @@ typedef struct {
     GtkWidget *password_entry;
     GtkWidget *box; // Work as grid in HTML
     GtkWidget *query_entry; //Store query
+    GtkWidget *url_entry; //Store API
+    GtkWidget *token_entry; //Store token
+    GtkWidget *addition_entry; //Store addition
 } LoginData;
 
 static void submit_button_clicked(GtkWidget *widget, gpointer data) {
     LoginData *login_data = (LoginData *)data;
     const gchar *query = gtk_entry_get_text(GTK_ENTRY(login_data->query_entry));
+    const gchar *urlRecom = gtk_entry_get_text(GTK_ENTRY(login_data->url_entry));
+    const gchar *apiKey = gtk_entry_get_text(GTK_ENTRY(login_data->token_entry));
+    const gchar *addition = gtk_entry_get_text(GTK_ENTRY(login_data->addition_entry));
 
     // Call food api and split it to String
-    char* result = splitString(foodAPI(query));
+    char* result = splitString(foodAPI(query,urlRecom,apiKey,addition));
 
     // Create a new tab to display the result
     GtkWidget *result_label = gtk_label_new(result);
@@ -54,21 +60,47 @@ static void login_button_clicked(GtkWidget *widget, gpointer data) {
 
         // Add query label
         GtkWidget *query_label = gtk_label_new("Enter your query:");
-        gtk_grid_attach(GTK_GRID(grid), query_label, 0, 0, 1, 1);
+        gtk_grid_attach(GTK_GRID(grid), query_label, 0, -2, 1, 1);
 
         // Add query entry
         login_data->query_entry = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), login_data->query_entry, 1, 0, 1, 1);
+        gtk_grid_attach(GTK_GRID(grid), login_data->query_entry, 1, -2, 1, 1);
+
+        // Add URL label
+        GtkWidget *url_label = gtk_label_new("Enter the URL:");
+        gtk_grid_attach(GTK_GRID(grid), url_label, 0, -3, 1, 1);
+
+        // Add URL entry
+        login_data->url_entry = gtk_entry_new();
+        gtk_grid_attach(GTK_GRID(grid), login_data->url_entry, 1, -3, 1, 1);
+
+        // Add Addition label
+        GtkWidget *addition_label = gtk_label_new("Enter the addition:");
+        gtk_grid_attach(GTK_GRID(grid), addition_label, 0, 0, 1, 1);
+
+        // Add Addition entry
+        login_data->addition_entry = gtk_entry_new();
+        gtk_grid_attach(GTK_GRID(grid), login_data->addition_entry, 1, 0, 1, 1);
+
+        // Add Token label
+        GtkWidget *token_label = gtk_label_new("Enter the Token:");
+        gtk_grid_attach(GTK_GRID(grid), token_label, 0, -1, 1, 1);
+
+        // Add Token entry
+        login_data->token_entry = gtk_entry_new();
+        gtk_grid_attach(GTK_GRID(grid), login_data->token_entry, 1, -1, 1, 1);
+
 
         // Add submit button
         GtkWidget *submit_button = gtk_button_new_with_label("Submit");
-        gtk_grid_attach(GTK_GRID(grid), submit_button, 0, 1, 2, 1);
+        gtk_grid_attach(GTK_GRID(grid), submit_button, 0, 2, 2, 1);
         g_signal_connect(submit_button, "clicked", G_CALLBACK(submit_button_clicked), login_data);
 
         // Show all newly added widgets
         gtk_widget_show_all(grid);
     }
 }
+
 
 static void destroy(GtkWidget *widget, gpointer data) {
     gtk_main_quit();
