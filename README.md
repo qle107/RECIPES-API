@@ -1,6 +1,6 @@
 # RECIPES API
 
-This is a program created to pass the 2nd year :)
+This project was created as part of a 2nd-year coursework assignment. The objective is to develop an interactive interface that allows users to input food items and receive instructions on how to prepare them.
 
 ## Table of Contents
 
